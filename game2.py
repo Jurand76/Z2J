@@ -36,7 +36,7 @@ def player_key():
                 if key[pg.K_ESCAPE]:
                     pg.quit()
                     sys.exit()
-                pressed = True
+
 
 def board_text(screen, text, x, y, size, color):
     font = pg.font.SysFont("Comic Cans MS", size)
