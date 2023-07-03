@@ -78,6 +78,7 @@ def draw_computer(screen, number):
     board_text(display_screen, "o", pos_x, pos_y, 80, (250, 0, 0))
     pg.display.flip()
 
+# check if someone wins
 def check_winner(tab):
     if (tab[0] == tab[1] == tab[2] == 1) or (tab[3] == tab[4] == tab[5] == 1) or (tab[6] == tab[7] == tab[8] == 1):
         return 1
@@ -93,10 +94,36 @@ def check_winner(tab):
         return 2
     return 0
 
+# checks if game has ended because there is winner or there is draw
+def end_game(screen, winner):
+    finish_game = False
+    if winner != 0:
+        if winner == 1:
+            board_text(screen, "You Win!", 250, 430, 50, (0, 250, 0))
+            pg.display.flip()
+            finish_game = True
+        if winner == 2:
+            board_text(screen, "Computer Wins!", 170, 430, 50, (0, 250, 0))
+            pg.display.flip()
+            finish_game = True
+
+    if winner == 0 and moves_done == 9:
+        board_text(screen, "Draw!", 270, 430, 50, (0, 250, 0))
+        pg.display.flip()
+        finish_game = True
+
+    if finish_game:
+        press_ESC = player_key()
+        pg.quit()
+        sys.exit()
+
+# Main part of code
 
 pg.init()
 display_screen = pg.display.set_mode((640, 480))
 display_board(display_screen)
+
+moves_done = 0
 
 game_over = False
 
@@ -110,8 +137,12 @@ while not game_over:
             draw_player(display_screen, number)
             board[number-1] = 1
             good_move = True
+            moves_done += 1
         else:
             number = player_key()
+
+    winner = check_winner(board)
+    end_game(display_screen, winner)
 
     good_move = False
     number_comp = random.randint(1,9)
@@ -121,20 +152,13 @@ while not game_over:
             draw_computer(display_screen, number_comp)
             board[number_comp-1] = 2
             good_move = True
+            moves_done += 1
         else:
             number_comp = random.randint(1,9)
 
     winner = check_winner(board)
-    if winner != 0:
-        if winner == 1:
-            board_text(display_screen, "You Win!", 250, 430, 50, (0, 250, 0))
-            pg.display.flip()
-        if winner == 2:
-            board_text(display_screen, "Computer Wins!", 170, 430, 50, (0, 250, 0))
-            pg.display.flip()
-        number = player_key()
-        game_over = True
-        pg.quit()
-        sys.exit()
+    end_game(display_screen, winner)
+
+
 
 
