@@ -70,23 +70,30 @@ class Elven:
 
 
 class Reindeer:
+    # initialization
     def __init__(self, name):
         self.name = name
 
 
 class ToothFairy:
+    # initialization
     def __init__(self, cash):
         self.cash = cash
 
+    # try to pick up tooth
     def take_tooth(self, payment):
         if payment <= self.cash:
             print("Thanks for you tooth.")
             self.cash = self.cash - payment
+            return True
         else:
             print("Sorry, this tooth is too expensive")
+            return False
 
+    # are you rich enough for picking up teeth?
     def how_much_cash(self):
         return self.cash
 
+    # if no - take cash from bank
     def take_cash_from_bank(self, withdrawal):
         self.cash = self.cash + withdrawal
