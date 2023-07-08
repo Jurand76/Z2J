@@ -1,4 +1,16 @@
-class SantaClaus:
+class Position:
+    pos_x = 0
+    pos_y = 0
+
+    def set_position(self, new_pos_x, new_pos_y):
+        self.pos_x = new_pos_x
+        self.pos_y = new_pos_y
+
+    def get_position(self):
+        return self.pos_x, self.pos_y
+
+
+class SantaClaus(Position):
     # initialization
     def __init__(self, name, age, gifts_counter, pos_x, pos_y):
         self.name = name
@@ -36,7 +48,7 @@ class SantaClaus:
         return self.pos_x, self.pos_y
 
 
-class Child:
+class Child(Position):
     # initialization
     def __init__(self, name, age, pos_x, pos_y):
         self.name = name
@@ -75,7 +87,7 @@ class Reindeer:
         self.name = name
 
 
-class ToothFairy:
+class ToothFairy(Position):
     # initialization
     def __init__(self, cash):
         self.cash = cash
@@ -97,3 +109,5 @@ class ToothFairy:
     # if no - take cash from bank
     def take_cash_from_bank(self, withdrawal):
         self.cash = self.cash + withdrawal
+
+
