@@ -1,0 +1,4 @@
+Waga to zwykła waga szalkowa z licznikiem wykonanych ważeń.
+Szalka, na której jest cięższy przedmiot - idzie w dół.
+Przy wadze nie ma do niej żadnych odważników.
+Możesz kłaść przedmioty na szalce, możesz je zdejmować (pojedynczo), możesz zdjąć wszystko z obu szalek na raz.

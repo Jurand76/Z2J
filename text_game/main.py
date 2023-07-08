@@ -76,6 +76,9 @@ class Waga:
         self.szalka_lewa = 0
         self.szalka_prawa = 0
 
+    def ile_wazen(self):
+        return self.liczba_wazen
+
 
 class Stol:
     liczba_kul = 0
@@ -137,12 +140,49 @@ def jestes_przy_stole():
     global poziom
     print('Jesteś przy stole. Wybierz opcję:')
     print('   1 - opis przedmiotu')
+    print('   2 - użyj wagi')
+    print('   3 - użyj kul')
+    print('   4 - odejdź od stołu')
+    print('   0 - zakończ grę')
+    key = wybor(1, 4)
+    if key == '1':
+        opis('stol.txt')
+        stol.opisz_stol()
+    if key == '2':
+        poziom = etapy[3]
+    if key == '3':
+        poziom = etapy[4]
+    if key == '4':
+        poziom = etapy[0]
+
+def jestes_przy_wadze():
+    global poziom
+    print('Jesteś przy wadze. Wybierz opcję:')
+    print('   1 - opis przedmiotu')
     print('   2 - użyj przedmiotu')
-    print('   3 - odejdź od stołu')
+    print('   3 - zostaw wagę')
     print('   0 - zakończ grę')
     key = wybor(1, 3)
     if key == '1':
-        opis('stol.txt')
+        opis('waga.txt')
+        print(f'Licznik wskazuje liczbę ważeń: {waga.ile_wazen()}')
+    if key == '2':
+        poziom = etapy[3]
+    if key == '3':
+        poziom = etapy[2]
+
+def jestes_przy_kulach():
+    global poziom
+    print('Jesteś przy kulach. Wybierz opcję:')
+    print('   1 - opis przedmiotu')
+    print('   2 - zabierz kulę')
+    print('   3 - odłóż kulę')
+    print('   4 - rozwiąż zadanie')
+    print('   0 - zakończ grę')
+    key = wybor(1, 3)
+    if key == '1':
+        opis('kule.txt')
+
     if key == '2':
         poziom = etapy[3]
     if key == '3':
@@ -152,6 +192,9 @@ poziom = etapy[0]
 
 print('Witaj w grze')
 
+stol = Stol()
+waga = Waga()
+
 while True:
     if poziom == etapy[0]:
         jestes_w_pokoju()
@@ -159,3 +202,5 @@ while True:
         jestes_przy_oknie()
     if poziom == etapy[2]:
         jestes_przy_stole()
+    if poziom == etapy[3]:
+        jestes_przy_wadze()
