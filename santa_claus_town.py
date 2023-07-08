@@ -88,9 +88,12 @@ class Reindeer:
 
 
 class ToothFairy(Position):
+
     # initialization
     def __init__(self, cash):
         self.cash = cash
+        self.pos_x = 0
+        self.pox_y = 0
 
     # try to pick up tooth
     def take_tooth(self, payment):
@@ -109,5 +112,7 @@ class ToothFairy(Position):
     # if no - take cash from bank
     def take_cash_from_bank(self, withdrawal):
         self.cash = self.cash + withdrawal
+
+
 
 
