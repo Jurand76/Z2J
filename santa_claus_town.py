@@ -67,10 +67,12 @@ class Child(Position):
 
 class Elven:
     gifts_produced = 0
+    number_of_elves = 0
 
     # initialization
     def __init__(self, name):
         self.name = name
+        Elven.number_of_elves += 1
 
     # create new gift
     def produce_gift(self):
