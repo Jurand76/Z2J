@@ -98,7 +98,7 @@ for i in range(0, 100):
 
 for a in range(1, 101):
     print('Round: ', a)
-    for i in range(a-1, 100, a):
+    for i in range(a - 1, 100, a):
         if cats[i] == 0:
             cats[i] = 1
         else:
@@ -106,5 +106,20 @@ for a in range(1, 101):
 
 for b in range(0, 100):
     if cats[b] == 1:
-        print(f'Cat {b+1} has hat')
+        print(f'Cat {b + 1} has hat')
+
+class Pies:
+    def __init__(self, name, color):
+        self.name = name
+        self.color = color
+    def woofing(self):
+        print(f'{self.name} is woofing')
+
+    def __str__(self):
+        return(f'{self.name} is color {self.color}')
+
+Owczarek = Pies('Azor', 'czarny')
+print(Owczarek.name)
+Owczarek.woofing()
+print(Owczarek)
 
