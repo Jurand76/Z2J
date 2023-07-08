@@ -10,16 +10,19 @@ def wybor():
         else:
             return result
 
+
 def opis_pomieszczenia():
     print("Znajdujesz się w pokoju, na środku pokoju jest stół, a na nim waga")
     print("Waga ma dwie szalki. Jeśli na którejś z nich leży cięższy przedmiot - szalka idzie w dół.")
     print("Obok wagi jest 9 tak samo wyglądających kul. Jedna z kul jest odrobinę cięższa od pozostałych.")
     print("Znajdź najcięższą kulę.")
 
+
 class Kula:
     def __init__(self, numer, waga):
         self.numer = numer
         self.waga = waga
+
 
 class Waga:
     def __init__(self, szalka_lewa, szalka_prawa):
@@ -45,6 +48,23 @@ class Waga:
         self.szalka_prawa = 0
 
 
+class Stol:
+    liczba_kul = 0
+
+    def __init__(self):
+        self.liczba_kul = 9
+
+    def zabierz_kule(self):
+        if self.liczba_kul > 0:
+            self.liczba_kul -= 1
+            return 1
+        else:
+            print('Nie ma nic na stole')
+            return 0
+
+    def opisz_stol(self):
+        print(f'Na stole jest następująca liczba kul: {self.liczba_kul}')
+
 
 print('Witaj w grze')
 print('Wybierz opcję:')
@@ -55,10 +75,3 @@ print('   0 - zakończ grę')
 
 key = wybor()
 print(key)
-
-
-
-
-
-
-
