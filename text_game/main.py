@@ -157,10 +157,6 @@ stol = stol.Stol()
 waga = waga.Waga()
 kule = kule.Kule()
 
-for item in range(1, 9):
-    if kule.waga(item) == 2:
-        print(f'Najciezsza jest kula nr {item}')
-
 while True:
     if poziom == etapy[0]:
         jestes_w_pokoju()
