@@ -34,5 +34,8 @@ for i in range(1, 10):
     if i % 3 == 0:
         print()
 
-print(check_sudoku(sudoku, 3))
+if check_sudoku(sudoku, 3):
+    print("To jest poprawnie wykonane sudoku")
+else:
+    print("To nie jest poprawnie wykonane sudoku")
 
