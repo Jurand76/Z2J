@@ -18,6 +18,7 @@ def generate_one_sudoku(size):
         numbers.remove(sudoku[i - 1])
     return sudoku
 
+
 def check_sudoku(table, size):
     sum_list = []
     sum_1 = 0
@@ -40,6 +41,7 @@ def check_sudoku(table, size):
 
     return result
 
+
 def draw_board(table, size):
     for i in range(1, size ** 2 + 1):
         print(' ', end='')
@@ -49,6 +51,13 @@ def draw_board(table, size):
         if i % size == 0:
             print()
 
+def generate_few_sudoku(size, number_of_boards):
+    big_sudoku = []
+    for i in range(0, number_of_boards):
+        table = generate_one_sudoku(size)
+        big_sudoku.append(table)
+    return big_sudoku
+
 input_str = input("Podaj szerokość planszy (2-20): ")
 board_size = int(input_str)
 input_str = input("Podaj ile wygenerować plansz(4/9/16/25): ")
@@ -57,8 +66,14 @@ board_count = int(input_str)
 sudoku_board = generate_one_sudoku(board_size)
 draw_board(sudoku_board, board_size)
 
-
 if check_sudoku(sudoku_board, board_size):
     print("To jest poprawnie wykonane sudoku")
 else:
     print("To nie jest poprawnie wykonane sudoku")
+
+sudoku_few_boards = generate_few_sudoku(board_size, board_count)
+for i in range(0, board_count):
+    draw_board(sudoku_few_boards[i], board_size)
+    print()
+
+
