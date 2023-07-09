@@ -30,7 +30,9 @@ def generate_numbers(size):
     return table
 
 
-sudoku_size = 4
+sudoku_str = input("Podaj szerokość planszy (2-20): ")
+sudoku_size = int(sudoku_str)
+
 sudoku_pow = sudoku_size * sudoku_size
 numbers = generate_numbers(sudoku_size)
 sudoku = []
