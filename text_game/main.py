@@ -1,10 +1,14 @@
 import random
+import stol
+import waga
+import kule
 
 etapy = ['pokoj', 'okno', 'stol', 'waga', 'kule']
 
+
 def wybor(min, max):
     result = ''
-    while result is not '0':
+    while result != '0':
         result = input(f'Twoj wybor ({min}-{max} lub 0) :')
         if result == '0':
             print('Dziekuje za gre!')
@@ -14,88 +18,10 @@ def wybor(min, max):
 
 
 def opis(nazwa_pliku):
-    f = open(nazwa_pliku)
+    f = open(nazwa_pliku, encoding='utf-8')
     print(f.read())
     f.close()
 
-class Kule:
-    kule = [1, 1, 1, 1, 1, 1, 1, 1, 1]
-    def __init__(self):
-        ciezsza = random.randint(1,9)
-        self.kule[ciezsza] = 2
-
-    def waga(self, numer):
-        return self.kule[numer]
-
-
-class Waga:
-    liczba_wazen = 0
-
-    def __init__(self):
-        self.szalka_lewa = 0
-        self.szalka_prawa = 0
-        self.liczba_lewa = 0
-        self.liczba_prawa = 0
-    def wazenie(self):
-        if (self.szalka_lewa == 0) and (self.szalka_prawa == 0):
-            print("Szalki wagi są puste")
-            return 0
-        if self.szalka_lewa < self.szalka_prawa:
-            self.liczba_wazen += 1
-            return -1
-        if self.szalka_lewa > self.szalka_prawa:
-            self.liczba_wazen += 1
-            return 1
-        if self.szalka_lewa == self.szalka_prawa:
-            self.liczba_wazen += 1
-            return 0
-
-    def doloz_z_lewej(self, ciezar):
-        self.szalka_lewa = self.szalka_lewa + ciezar
-        self.liczba_lewa += 1
-
-    def doloz_z_prawej(self, ciezar):
-        self.szalka_prawa = self.szalka_prawa + ciezar
-        self.liczba_prawa += 1
-
-    def zabierz_z_lewej(self, ciezar):
-        if self.liczba_lewa > 0:
-            self.szalka_lewa = self.szalka_lewa - ciezar
-            self.liczba_lewa -= 1
-        else:
-            print("Nie ma nic na lewej szalce")
-
-    def zabierz_z_prawej(self, ciezar):
-        if self.liczba_prawa > 0:
-            self.szalka_prawa = self.szalka_prawa - ciezar
-            self.liczba_prawa -= 1
-        else:
-            print("Nie ma nic na prawej szalce")
-
-    def zeruj_wage(self):
-        self.szalka_lewa = 0
-        self.szalka_prawa = 0
-
-    def ile_wazen(self):
-        return self.liczba_wazen
-
-
-class Stol:
-    liczba_kul = 0
-
-    def __init__(self):
-        self.liczba_kul = 9
-
-    def zabierz_kule(self):
-        if self.liczba_kul > 0:
-            self.liczba_kul -= 1
-            return 1
-        else:
-            print('Nie ma nic na stole')
-            return 0
-
-    def opisz_stol(self):
-        print(f'Na stole jest następująca liczba kul: {self.liczba_kul}')
 
 def zmien_pozycje():
     global poziom
@@ -109,6 +35,7 @@ def zmien_pozycje():
     if key == '2':
         poziom = etapy[2]
 
+
 def jestes_w_pokoju():
     global poziom
     print('Jesteś w pokoju. Wybierz opcję:')
@@ -120,6 +47,7 @@ def jestes_w_pokoju():
         opis('pokoj.txt')
     if key == '2':
         zmien_pozycje()
+
 
 def jestes_przy_oknie():
     global poziom
@@ -135,6 +63,7 @@ def jestes_przy_oknie():
         print('Okno nie daje się otworzyć.')
     if key == '3':
         zmien_pozycje()
+
 
 def jestes_przy_stole():
     global poziom
@@ -155,45 +84,77 @@ def jestes_przy_stole():
     if key == '4':
         poziom = etapy[0]
 
+
 def jestes_przy_wadze():
     global poziom
     print('Jesteś przy wadze. Wybierz opcję:')
     print('   1 - opis przedmiotu')
-    print('   2 - użyj przedmiotu')
+    print('   2 - użyj przedmiotu (ważenie)')
     print('   3 - zostaw wagę')
     print('   0 - zakończ grę')
     key = wybor(1, 3)
     if key == '1':
         opis('waga.txt')
-        print(f'Licznik wskazuje liczbę ważeń: {waga.ile_wazen()}')
+        waga.opisz_stan_wagi()
     if key == '2':
-        poziom = etapy[3]
+        print("Uruchomiłeś wagę")
+        wynik = waga.wazenie()
+        if wynik == -1:
+            print('Szalka lewa opadła na dół')
+        if wynik == 1:
+            print('Szalka prawa opadła na dół')
+        if wynik == 0:
+            print('Szalki nie poruszyły się')
     if key == '3':
         poziom = etapy[2]
 
+
 def jestes_przy_kulach():
     global poziom
+    global kule
+    global waga
     print('Jesteś przy kulach. Wybierz opcję:')
     print('   1 - opis przedmiotu')
-    print('   2 - zabierz kulę')
-    print('   3 - odłóż kulę')
-    print('   4 - rozwiąż zadanie')
+    print('   2 - połóż kulę na wadze')
+    print('   3 - zdejmij wszystkie kule z wagi na stół')
+    print('   4 - odejdź od kul i wróć do wagi')
+    print('   5 - rozwiąż zadanie i zakończ grę')
     print('   0 - zakończ grę')
     key = wybor(1, 3)
     if key == '1':
         opis('kule.txt')
-
+        stol.opisz_stol()
     if key == '2':
-        poziom = etapy[3]
+        numerkuli_str = input("Którą kulę chcesz położyć na wadze (1-9): ")
+        numer_kuli = int(numerkuli_str)
+        if stol.zabierz_kule(numer_kuli) > 0:
+            szalka_str = input("Na którą szalkę wagi ją położyć (L - lewa, P-prawa): ")
+            szalka = szalka_str.upper()
+            if szalka == 'L':
+                waga.doloz_z_lewej(kule.waga(numer_kuli))
+            if szalka == 'P':
+                waga.doloz_z_prawej(kule.waga(numer_kuli))
     if key == '3':
-        poziom = etapy[0]
+        stol.oddaj_kule()
+    if key == '4':
+        poziom = etapy[3]
+    if key == '5':
+        numerkuli_str = input("Która kula jest cięższa od pozostałych (1-9): ")
+        numer_kuli = int(numerkuli_str)
+        if kule.waga(numer_kuli) == 2:
+            print(f'To jest prawidłowa odpowiedź! Wykonałeś zadanie używając wagi {waga.ile_wazen()} razy')
+            exit()
+        else:
+            print(f'To nie jest prawidłowa odpowiedź. Najcięższa jest kula nr')
+            exit()
 
 poziom = etapy[0]
 
 print('Witaj w grze')
 
-stol = Stol()
-waga = Waga()
+stol = stol.Stol()
+waga = waga.Waga()
+kule = kule.Kule()
 
 while True:
     if poziom == etapy[0]:
@@ -204,3 +165,5 @@ while True:
         jestes_przy_stole()
     if poziom == etapy[3]:
         jestes_przy_wadze()
+    if poziom == etapy[4]:
+        jestes_przy_kulach()

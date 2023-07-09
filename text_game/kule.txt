@@ -1,0 +1,4 @@
+Kule ponumerowane są od 1 do 9.
+Każda z nich wygląda tak samo jeśli chodzi o kolor, czy rozmiary.
+Obok kul jest kartka z informacją:
+Jedna z kul jest odrobinę cięższa. Użyj wagi, aby znaleźć tą kulę, starając się wykorzystać wagę najmniejszą ilość razy.
