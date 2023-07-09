@@ -136,6 +136,7 @@ def jestes_przy_kulach():
                 waga.doloz_z_prawej(kule.waga(numer_kuli))
     if key == '3':
         stol.oddaj_kule()
+        waga.zeruj_wage()
     if key == '4':
         poziom = etapy[3]
     if key == '5':
@@ -155,6 +156,10 @@ print('Witaj w grze')
 stol = stol.Stol()
 waga = waga.Waga()
 kule = kule.Kule()
+
+for item in range(1, 9):
+    if kule.waga(item) == 2:
+        print(f'Najciezsza jest kula nr {item}')
 
 while True:
     if poziom == etapy[0]:
