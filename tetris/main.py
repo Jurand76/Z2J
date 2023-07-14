@@ -47,7 +47,17 @@ class Board:
         for i in range(0, sizeX):
             for j in range(0, sizeY):
                 try:
-                    self.grid[x+i][y+j] = block.grid[i][j]
+                    if block.grid[i][j] > 0:
+                        self.grid[x+i][y+j] = block.grid[i][j]
+                except:
+                    pass
+
+    def delete_block(self, x, y, block, sizeX, sizeY):
+        for i in range(0, sizeX):
+            for j in range(0, sizeY):
+                try:
+                    if block.grid[i][j] > 0:
+                        self.grid[x+i][y+j] = 0
                 except:
                     pass
 
@@ -97,6 +107,7 @@ while running:
             exit()
         if event.type == pg.KEYDOWN:
             if pg.key.get_pressed()[pg.K_s]:
+                board.delete_block(x, y, block, block.dim, block.dim)
                 y = y + 1
                 for a in range(0, block.dim):
                     try:
@@ -105,6 +116,7 @@ while running:
                         pass
 
             if pg.key.get_pressed()[pg.K_a]:
+                board.delete_block(x, y, block, block.dim, block.dim)
                 x = x - 1
                 for a in range(0, block.dim):
                     try:
@@ -112,6 +124,7 @@ while running:
                     except:
                         pass
             if pg.key.get_pressed()[pg.K_d]:
+                board.delete_block(x, y, block, block.dim, block.dim)
                 x = x + 1
                 for a in range(0, block.dim):
                     try:
@@ -120,11 +133,13 @@ while running:
                         pass
             if pg.key.get_pressed()[pg.K_SPACE]:
                 print("Space")
+                board.delete_block(x, y, block, block.dim, block.dim)
                 block.rotate()
 
     step += 1
     if step >= speed:
         step = 0
+        board.delete_block(x, y, block, block.dim, block.dim)
         y = y + 1
         for a in range(0, block.dim):
             try:
