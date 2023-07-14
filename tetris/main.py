@@ -41,10 +41,14 @@ class Board:
     def insert_block(self, x, y, block, sizeX, sizeY):
         for i in range(0, sizeX):
             for j in range(0, sizeY):
-                self.grid[x+i][y+j] = block.grid[i][j]
+                try:
+                    self.grid[x+i][y+j] = block.grid[i][j]
+                except:
+                    pass
 
 class BlockI:
     def __init__(self):
+        self.dim = 4
         self.grid = np. zeros((4, 4), dtype=int)
         self.grid[0][1] = 2
         self.grid[1][1] = 2
@@ -65,7 +69,7 @@ block = BlockI()
 x = 4
 y = 0
 
-board.insert_block(x, y, block, 4, 4)
+board.insert_block(x, y, block, block.dim, block.dim)
 
 running = True
 while running:
@@ -79,19 +83,35 @@ while running:
             if pg.key.get_pressed()[pg.K_s]:
                 print("S")
                 y = y + 1
+                for a in range(0, block.dim):
+                    try:
+                        board.grid[x+a][y-1] = 0
+                    except:
+                        pass
             if pg.key.get_pressed()[pg.K_w]:
                 print("W")
             if pg.key.get_pressed()[pg.K_a]:
                 print("A")
                 x = x - 1
+                for a in range(0, block.dim):
+                    try:
+                        board.grid[x + block.dim][y + a] = 0
+                    except:
+                        pass
             if pg.key.get_pressed()[pg.K_d]:
                 print("D")
                 x = x + 1
+                for a in range(0, block.dim):
+                    try:
+                        board.grid[x -1][y + a] = 0
+                    except:
+                        pass
             if pg.key.get_pressed()[pg.K_SPACE]:
                 print("Space")
                 block.rotate()
-                board.insert_block(x, y, block, 4, 4)
+
 
     screen.fill((0, 0, 0))
     grid_background(screen, (50, 50, 50), colors[1], 40, board.grid)
+    board.insert_block(x, y, block, block.dim, block.dim)
     pg.display.update()
