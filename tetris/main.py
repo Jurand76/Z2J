@@ -78,7 +78,7 @@ screen.fill((0, 0, 0))
 
 board = Board()
 
-block = blocks.BlockT()
+block = blocks.get_random_block()
 
 x = 4
 y = 0
@@ -135,7 +135,7 @@ while running:
     if not board.check_board():
         print('Next clocek')
         board.upgrade_board()
-        block = blocks.BlockZ()
+        block = blocks.get_random_block()
         y = 0
 
     screen.fill((0, 0, 0))

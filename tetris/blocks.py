@@ -1,4 +1,5 @@
 import numpy as np
+import random
 
 
 class BlockI:
@@ -64,3 +65,18 @@ class BlockT:
 
     def rotate(self):
         self.grid = np.rot90(self.grid, 1)
+
+def get_random_block():
+    result = BlockI()
+    number = random.randint(0, 4)
+    if number == 0:
+        result = BlockI()
+    if number == 1:
+        result = BlockT()
+    if number == 2:
+        result = BlockJ()
+    if number == 3:
+        result = BlockZ()
+    if number == 4:
+        result = BlockL()
+    return result
