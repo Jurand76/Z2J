@@ -51,6 +51,25 @@ class Board:
                 except:
                     pass
 
+    def check_board(self):
+        canMoveDown = True
+        for j in range(0, 26):
+            for i in range(0, 12):
+                if 10 > self.grid[i][j] > 0:
+                    if j == 25:
+                        print('Down od board')
+                        canMoveDown = False
+                        return canMoveDown
+                    if self.grid[i][j+1] > 10:
+                        canMoveDown = False
+                        print('Cannot move lower - another block')
+        return canMoveDown
+
+    def upgrade_board(self):
+        for j in range(0, 26):
+            for i in range(0, 12):
+                if 10 > self.grid[i][j] > 0:
+                    self.grid[i][j] += 10
 
 
 FPS = 60
@@ -78,17 +97,14 @@ while running:
             exit()
         if event.type == pg.KEYDOWN:
             if pg.key.get_pressed()[pg.K_s]:
-                print("S")
                 y = y + 1
                 for a in range(0, block.dim):
                     try:
                         board.grid[x+a][y-1] = 0
                     except:
                         pass
-            if pg.key.get_pressed()[pg.K_w]:
-                print("W")
+
             if pg.key.get_pressed()[pg.K_a]:
-                print("A")
                 x = x - 1
                 for a in range(0, block.dim):
                     try:
@@ -96,7 +112,6 @@ while running:
                     except:
                         pass
             if pg.key.get_pressed()[pg.K_d]:
-                print("D")
                 x = x + 1
                 for a in range(0, block.dim):
                     try:
@@ -117,7 +132,11 @@ while running:
             except:
                 pass
 
-
+    if not board.check_board():
+        print('Next clocek')
+        board.upgrade_board()
+        block = blocks.BlockZ()
+        y = 0
 
     screen.fill((0, 0, 0))
     grid_background(screen, (50, 50, 50), colors[1], 40, board.grid)
