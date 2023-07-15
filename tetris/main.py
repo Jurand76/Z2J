@@ -11,7 +11,7 @@ pg.init()
 # initialization game parameters, game board and starting game
 
 FPS = 60
-screen = pg.display.set_mode((480, 1040))
+screen = pg.display.set_mode((480, 1180))
 screen.fill((0, 0, 0))
 board = board.Board()
 game.game_start(screen, FPS, board)

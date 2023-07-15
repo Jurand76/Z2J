@@ -6,7 +6,7 @@ import blocks
 import board
 
 
-def grid_background(scr, color, color_back, size, grid):
+def grid_background(scr, color, color_back, size, grid, movepixels):
     global colors
 
     for i in range(0, 12):
@@ -93,6 +93,6 @@ def game_start(scr, FPS, board):
                 running = False
 
         scr.fill((0, 0, 0))
-        grid_background(scr, (50, 50, 50), c.colors[1], 40, board.grid)
+        grid_background(scr, (50, 50, 50), c.colors[1], 40, board.grid, 140)
         board.insert_block(x, y, block, block.dim, block.dim)
         pg.display.update()
