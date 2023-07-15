@@ -85,6 +85,8 @@ while running:
 
     manually_moved = False
 
+
+
     if not board.check_board():
         #print('Next klocek')
         if y > 0:
