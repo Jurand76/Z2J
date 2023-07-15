@@ -66,9 +66,21 @@ class BlockT:
     def rotate(self):
         self.grid = np.rot90(self.grid, 1)
 
+class BlockR:
+    def __init__(self):
+        self.dim = 2
+        self.grid = np.zeros((2, 2), dtype=int)
+        self.grid[0][0] = 7
+        self.grid[0][1] = 7
+        self.grid[1][0] = 7
+        self.grid[1][1] = 7
+
+    def rotate(self):
+        self.grid = np.rot90(self.grid, 1)
+
 def get_random_block():
     result = BlockI()
-    number = random.randint(0, 4)
+    number = random.randint(0, 5)
     if number == 0:
         result = BlockI()
     if number == 1:
@@ -79,4 +91,6 @@ def get_random_block():
         result = BlockZ()
     if number == 4:
         result = BlockL()
+    if number == 5:
+        result = BlockR()
     return result

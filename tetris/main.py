@@ -16,9 +16,11 @@ value = (0, 255, 0)      # 3 - green
 colors.append(value)
 value = (0, 0, 255)      # 4 - blue
 colors.append(value)
-value = (70, 70, 255)    # 5 - Ligthblue
+value = (90, 90, 255)    # 5 - Ligthblue
 colors.append(value)
-value = (234, 221, 50)    # 7 - Yellow
+value = (234, 221, 50)    # 6 - Yellow
+colors.append(value)
+value = (230, 230, 230)    # 7 - Almost white
 colors.append(value)
 
 
@@ -92,7 +94,7 @@ block = blocks.get_random_block()
 
 x = 4
 y = 0
-speed = 50
+speed = 30
 step = 0
 
 board.insert_block(x, y, block, block.dim, block.dim)
@@ -148,10 +150,14 @@ while running:
                 pass
 
     if not board.check_board():
-        print('Next clocek')
-        board.upgrade_board()
-        block = blocks.get_random_block()
-        y = 0
+        print('Next klocek')
+        if y > 0:
+            board.upgrade_board()
+            block = blocks.get_random_block()
+            y = 0
+            x = 4
+        else:
+            print('Game over')
 
     screen.fill((0, 0, 0))
     grid_background(screen, (50, 50, 50), colors[1], 40, board.grid)
