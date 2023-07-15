@@ -39,8 +39,6 @@ class Board:
         for j in range(0, sizeY):
             for i in range(0, sizeX - 1):
                 if block.grid[i][j] != 0 and self.grid[x + i - 1][y + j] > 10:
-                    # print(f"block.grid[{i}][{j}] = {block.grid[i][j]}, x = {x}")
-                    # print(f"self.grid[{x-i-1}][{y+j}] = {self.grid[x-1-i][y+j]}")
                     result = False
 
         # print("result = ", result)
@@ -48,17 +46,17 @@ class Board:
 
     def can_move_right(self, x, y, block, sizeX, sizeY):
         result = True
-        print(" x = ", x, " y = ", y, " sizeX = ", sizeX)
         for i in range(0, sizeY):
             if x >= 12 - sizeX:
                 if block.grid[11 - x][i] != 0:
                     result = False
         for j in range(0, sizeY):
             for i in range(1, sizeX):
-                if block.grid[sizeX - i][j] != 0 and self.grid[x + sizeX + 1 - i][y + j] > 10:
-                    # print(f"block.grid[{i}][{j}] = {block.grid[i][j]}, x = {x}")
-                    # print(f"self.grid[{x-i-1}][{y+j}] = {self.grid[x-1-i][y+j]}")
-                    result = False
+                try:
+                    if block.grid[sizeX - i][j] != 0 and self.grid[x + sizeX - i + 1][y + j] > 10:
+                        result = False
+                except:
+                    pass
 
         # print("result = ", result)
         return result
@@ -103,7 +101,7 @@ class Board:
                 scoreCalculated += 1
                 completed = True
 
-        self.score = self.score + 2 ** scoreCalculated
+        self.score = self.score + 2 ** scoreCalculated - 1
         print('Score: ', self.score)
 
     def print_board_console(self):
