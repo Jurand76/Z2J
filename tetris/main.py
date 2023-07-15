@@ -35,6 +35,8 @@ step = 0
 board.insert_block(x, y, block, block.dim, block.dim)
 
 running = True
+manually_moved = False
+
 while running:
     pg.time.Clock().tick(FPS)
     for event in pg.event.get():
@@ -46,8 +48,7 @@ while running:
             if pg.key.get_pressed()[pg.K_s]:
                 board.delete_block(x, y, block, block.dim, block.dim)
                 y = y + 1
-                if step > 0:
-                    step = step -1
+                manually_moved = True
 
             if pg.key.get_pressed()[pg.K_a]:
                 if board.can_move_left(x, y, block, block.dim, block.dim):
@@ -67,18 +68,23 @@ while running:
                     except:
                         pass
             if pg.key.get_pressed()[pg.K_SPACE]:
-                print("Space")
                 board.delete_block(x, y, block, block.dim, block.dim)
                 block.rotate()
 
+            if pg.key.get_pressed()[pg.K_b]:
+                board.print_board_console()
+
     step += 1
-    if step >= speed:
-        step = 0
-        board.delete_block(x, y, block, block.dim, block.dim)
-        y = y + 1
+    if manually_moved is False:
+        if step >= speed:
+            step = 0
+            board.delete_block(x, y, block, block.dim, block.dim)
+            y = y + 1
+
+    manually_moved = False
 
     if not board.check_board():
-        print('Next klocek')
+        #print('Next klocek')
         if y > 0:
             board.upgrade_board()
             block = blocks.get_random_block()
@@ -91,3 +97,4 @@ while running:
     grid_background(screen, (50, 50, 50), c.colors[1], 40, board.grid)
     board.insert_block(x, y, block, block.dim, block.dim)
     pg.display.update()
+

@@ -37,11 +37,11 @@ class Board:
         for j in range(0, sizeY):
             for i in range(0, sizeX-1):
                 if block.grid[i][j] != 0 and self.grid[x+i-1][y+j] > 10:
-                    print(f"block.grid[{i}][{j}] = {block.grid[i][j]}, x = {x}")
-                    print(f"self.grid[{x-i-1}][{y+j}] = {self.grid[x-1-i][y+j]}")
+                    #print(f"block.grid[{i}][{j}] = {block.grid[i][j]}, x = {x}")
+                    #print(f"self.grid[{x-i-1}][{y+j}] = {self.grid[x-1-i][y+j]}")
                     result = False
 
-        print("result = ", result)
+        #print("result = ", result)
         return result
 
     def check_board(self):
@@ -56,8 +56,36 @@ class Board:
                         canMoveDown = False
         return canMoveDown
 
+    def delete_row(self, number):
+        for i in range(0, 12):
+            self.grid[i][number] = 0
+
+        for j in range(0, number):
+            for i in range(0, 12):
+                self.grid[i][number-j] = self.grid[i][number-1-j]
+
+        for i in range(0, 12):
+            self.grid[i][0] = 0
+
+
     def upgrade_board(self):
         for j in range(0, 26):
             for i in range(0, 12):
                 if 10 > self.grid[i][j] > 0:
                     self.grid[i][j] += 10
+
+        for j in range(0, 26):
+            completed = True
+            for i in range(0, 12):
+                if self.grid[i][j] == 0:
+                    completed = False
+            if completed:
+                self.delete_row(j)
+                print('Completed row ', j)
+                completed = True
+
+    def print_board_console(self):
+        for j in range(0, 26):
+            for i in range(0, 12):
+                print(self.grid[i][j], end=' ')
+            print()
