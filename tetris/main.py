@@ -46,15 +46,18 @@ while running:
             if pg.key.get_pressed()[pg.K_s]:
                 board.delete_block(x, y, block, block.dim, block.dim)
                 y = y + 1
+                if step > 0:
+                    step = step -1
 
             if pg.key.get_pressed()[pg.K_a]:
-                board.delete_block(x, y, block, block.dim, block.dim)
-                x = x - 1
-                for a in range(0, block.dim):
-                    try:
-                        board.grid[x + block.dim][y + a] = 0
-                    except:
-                        pass
+                if board.can_move_left(x, y, block, block.dim, block.dim):
+                    board.delete_block(x, y, block, block.dim, block.dim)
+                    x = x - 1
+                    for a in range(0, block.dim):
+                        try:
+                            board.grid[x + block.dim][y + a] = 0
+                        except:
+                            pass
             if pg.key.get_pressed()[pg.K_d]:
                 board.delete_block(x, y, block, block.dim, block.dim)
                 x = x + 1

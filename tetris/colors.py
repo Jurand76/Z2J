@@ -13,5 +13,7 @@ value = (90, 90, 255)    # 5 - Ligthblue
 colors.append(value)
 value = (234, 221, 50)    # 6 - Yellow
 colors.append(value)
-value = (230, 230, 230)    # 7 - Almost white
+value = (220, 220, 220)    # 7 - Almost white
+colors.append(value)
+value = (255, 165, 0)    # 8 - Orange
 colors.append(value)
