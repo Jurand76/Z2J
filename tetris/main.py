@@ -45,12 +45,12 @@ while running:
             running = False
             exit()
         if event.type == pg.KEYDOWN:
-            if pg.key.get_pressed()[pg.K_s]:
+            if pg.key.get_pressed()[pg.K_s] or pg.key.get_pressed()[pg.K_DOWN]:
                 board.delete_block(x, y, block, block.dim, block.dim)
                 y = y + 1
                 manually_moved = True
 
-            if pg.key.get_pressed()[pg.K_a]:
+            if pg.key.get_pressed()[pg.K_a] or pg.key.get_pressed()[pg.K_LEFT]:
                 if board.can_move_left(x, y, block, block.dim, block.dim):
                     board.delete_block(x, y, block, block.dim, block.dim)
                     x = x - 1
@@ -59,14 +59,16 @@ while running:
                             board.grid[x + block.dim][y + a] = 0
                         except:
                             pass
-            if pg.key.get_pressed()[pg.K_d]:
-                board.delete_block(x, y, block, block.dim, block.dim)
-                x = x + 1
-                for a in range(0, block.dim):
-                    try:
-                        board.grid[x -1][y + a] = 0
-                    except:
-                        pass
+            if pg.key.get_pressed()[pg.K_d] or pg.key.get_pressed()[pg.K_RIGHT]:
+                if board.can_move_right(x, y, block, block.dim, block.dim):
+                    board.delete_block(x, y, block, block.dim, block.dim)
+                    x = x + 1
+                    for a in range(0, block.dim):
+                        try:
+                            board.grid[x - 1][y + a] = 0
+                        except:
+                            pass
+
             if pg.key.get_pressed()[pg.K_SPACE]:
                 board.delete_block(x, y, block, block.dim, block.dim)
                 block.rotate()

@@ -1,4 +1,6 @@
 import numpy as np
+
+
 class Board:
     def __init__(self):
         self.grid = np.zeros((12, 26), dtype=int)
@@ -14,7 +16,7 @@ class Board:
             for j in range(0, sizeY):
                 try:
                     if block.grid[i][j] > 0:
-                        self.grid[x+i][y+j] = block.grid[i][j]
+                        self.grid[x + i][y + j] = block.grid[i][j]
                 except:
                     pass
 
@@ -23,27 +25,42 @@ class Board:
             for j in range(0, sizeY):
                 try:
                     if block.grid[i][j] > 0:
-                        self.grid[x+i][y+j] = 0
+                        self.grid[x + i][y + j] = 0
                 except:
                     pass
 
     def can_move_left(self, x, y, block, sizeX, sizeY):
         result = True
-        print(" x = ", x, " y = ", y)
         for i in range(0, sizeY):
             if x <= 0:
-                if block.grid[0-x][i] != 0:
+                if block.grid[0 - x][i] != 0:
                     result = False
         for j in range(0, sizeY):
-            for i in range(0, sizeX-1):
-                if block.grid[i][j] != 0 and self.grid[x+i-1][y+j] > 10:
-                    #print(f"block.grid[{i}][{j}] = {block.grid[i][j]}, x = {x}")
-                    #print(f"self.grid[{x-i-1}][{y+j}] = {self.grid[x-1-i][y+j]}")
+            for i in range(0, sizeX - 1):
+                if block.grid[i][j] != 0 and self.grid[x + i - 1][y + j] > 10:
+                    # print(f"block.grid[{i}][{j}] = {block.grid[i][j]}, x = {x}")
+                    # print(f"self.grid[{x-i-1}][{y+j}] = {self.grid[x-1-i][y+j]}")
                     result = False
 
-        #print("result = ", result)
+        # print("result = ", result)
         return result
 
+    def can_move_right(self, x, y, block, sizeX, sizeY):
+        result = True
+        print(" x = ", x, " y = ", y, " sizeX = ", sizeX)
+        for i in range(0, sizeY):
+            if x >= 12-sizeX:
+                if block.grid[11-x][i] != 0:
+                    result = False
+        for j in range(0, sizeY):
+            for i in range(0, sizeX - 1):
+                if block.grid[i][j] != 0 and self.grid[x + i - 1][y + j] > 10:
+                    # print(f"block.grid[{i}][{j}] = {block.grid[i][j]}, x = {x}")
+                    # print(f"self.grid[{x-i-1}][{y+j}] = {self.grid[x-1-i][y+j]}")
+                    result = False
+
+        # print("result = ", result)
+        return result
     def check_board(self):
         canMoveDown = True
         for j in range(0, 26):
@@ -52,7 +69,7 @@ class Board:
                     if j == 25:
                         canMoveDown = False
                         return canMoveDown
-                    if self.grid[i][j+1] > 10:
+                    if self.grid[i][j + 1] > 10:
                         canMoveDown = False
         return canMoveDown
 
@@ -62,11 +79,10 @@ class Board:
 
         for j in range(0, number):
             for i in range(0, 12):
-                self.grid[i][number-j] = self.grid[i][number-1-j]
+                self.grid[i][number - j] = self.grid[i][number - 1 - j]
 
         for i in range(0, 12):
             self.grid[i][0] = 0
-
 
     def upgrade_board(self):
         for j in range(0, 26):
@@ -81,7 +97,6 @@ class Board:
                     completed = False
             if completed:
                 self.delete_row(j)
-                print('Completed row ', j)
                 completed = True
 
     def print_board_console(self):
