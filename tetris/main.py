@@ -1,27 +1,11 @@
 import pygame as pg
 import math
 import numpy as np
+import colors as c
 import blocks
 
-pg.init()
 
-colors = []
-value = (0, 0, 0)
-colors.append(value)     # 0 - black
-value = (20, 20, 20)
-colors.append(value)     # 1 - gray
-value = (255, 0, 0)      # 2 - red
-colors.append(value)
-value = (0, 255, 0)      # 3 - green
-colors.append(value)
-value = (0, 0, 255)      # 4 - blue
-colors.append(value)
-value = (90, 90, 255)    # 5 - Ligthblue
-colors.append(value)
-value = (234, 221, 50)    # 6 - Yellow
-colors.append(value)
-value = (230, 230, 230)    # 7 - Almost white
-colors.append(value)
+pg.init()
 
 
 def grid_background(scr, color, color_back, size, grid):
@@ -31,9 +15,9 @@ def grid_background(scr, color, color_back, size, grid):
         for j in range(0, 26):
             pg.draw.rect(scr, color, pg.Rect(i * size, j * size, size, size))
             if grid[i][j] < 10:
-                pg.draw.rect(scr, colors[grid[i][j]], pg.Rect(i * size + 1, j * size + 1, size - 2, size - 2))
+                pg.draw.rect(scr, c.colors[grid[i][j]], pg.Rect(i * size + 1, j * size + 1, size - 2, size - 2))
             else:
-                pg.draw.rect(scr, colors[grid[i][j]-10], pg.Rect(i * size + 1, j * size + 1, size - 2, size - 2))
+                pg.draw.rect(scr, c.colors[grid[i][j]-10], pg.Rect(i * size + 1, j * size + 1, size - 2, size - 2))
 
 class Board:
     def __init__(self):
@@ -160,6 +144,6 @@ while running:
             print('Game over')
 
     screen.fill((0, 0, 0))
-    grid_background(screen, (50, 50, 50), colors[1], 40, board.grid)
+    grid_background(screen, (50, 50, 50), c.colors[1], 40, board.grid)
     board.insert_block(x, y, block, block.dim, block.dim)
     pg.display.update()
