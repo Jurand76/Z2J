@@ -17,8 +17,11 @@ def grid_background(scr, color, color_back, size, grid, movepixels):
             else:
                 pg.draw.rect(scr, c.colors[grid[i][j] - 10], pg.Rect(i * size + 1, j * size + 1, size - 2, size - 2))
 
+    pg.draw.rect(scr, c.colors[1], pg.Rect(0, 1040, 480, 1080))
 
 def game_start(scr, FPS, board):
+    font = pg.font.Font('freesansbold.ttf', 24)
+    font_big = pg.font.Font('freesansbold.ttf', 48)
     block = blocks.get_random_block()
     x = 4
     y = 0
@@ -85,7 +88,6 @@ def game_start(scr, FPS, board):
                 blocks_counter += 1
                 if blocks_counter % 20 == 0:
                     speed -= 2
-                    print('Increasing speed')
                 y = 0
                 x = 4
             else:
@@ -95,4 +97,26 @@ def game_start(scr, FPS, board):
         scr.fill((0, 0, 0))
         grid_background(scr, (50, 50, 50), c.colors[1], 40, board.grid, 140)
         board.insert_block(x, y, block, block.dim, block.dim)
+        text = font.render(f'Score: {board.score}', True, c.colors[6], c.colors[1])
+        text2 = font.render(f'Speed: {30 - speed}', True, c.colors[7], c.colors[1])
+        textRect = text.get_rect()
+        text2Rect = text2.get_rect()
+        textRect.center = (80, 1060)
+        text2Rect.center = (400, 1060)
+        scr.blit(text, textRect)
+        scr.blit(text2, text2Rect)
         pg.display.update()
+
+    text = font_big.render(f'GAME OVER', True, c.colors[6], c.colors[1])
+    textRect = text.get_rect()
+    textRect.center = (240, 540)
+    scr.blit(text, textRect)
+    pg.display.update()
+
+    running = True
+    while running:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+                running = False
+                exit()
