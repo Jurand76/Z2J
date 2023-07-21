@@ -17,6 +17,8 @@ class Client:
 
 
 client = Client()
+query = "info"
+print(f"{client.communication(query)}")
 query = "help"
 print(f"Help: {client.communication(query)}")
 query = "uptime"
