@@ -1,4 +1,5 @@
 import socket as s
+import json
 
 
 class Client:
