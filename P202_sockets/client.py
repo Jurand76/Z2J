@@ -1,11 +1,20 @@
-import socket
+import socket as s
 
-HOST = "127.0.0.1"  # The server's hostname or IP address
-PORT = 65432  # The port used by the server
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.connect((HOST, PORT))
-    s.sendall(b"uptime")
-    data = s.recv(1024).decode('utf8')
+class Client:
+    HOST = "127.0.0.1"  # The server's hostname or IP address
+    PORT = 65432  # The port used by the server
 
-print(f"Received {data}")
+    def __init__(self):
+        self.connection = s.socket(s.AF_INET, s.SOCK_STREAM)
+        self.connection.connect((self.HOST, self.PORT))
+
+    def communication(self):
+        query = "uptime".encode('utf8')
+        self.connection.sendall(query)
+        response = self.connection.recv(1024).decode('utf8')
+        return response
+
+
+client = Client()
+print(f"Received: {client.communication()}")
