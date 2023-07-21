@@ -24,7 +24,16 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             if data == "uptime":
                 response = str(getServerTime())
                 conn.sendall(json.dumps(response).encode('utf8'))
+            if data == "help":
+                response = "Commands to use: uptime, info, help, stop"
+                conn.sendall(json.dumps(response).encode('utf8'))
+            if data == "stop":
+                response = "Server stopped by user"
+                conn.sendall(json.dumps(response).encode('utf8'))
+                break
             if not data:
+                response = "Server stopped without data"
+                conn.sendall(json.dumps(response).encode('utf8'))
                 break
 
 
