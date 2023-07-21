@@ -9,7 +9,7 @@ start_time = datetime.now()
 print(start_time)
 
 
-def getServerTime():
+def get_server_time():
     global start_time
     time_now = datetime.now()
     return time_now - start_time
@@ -28,7 +28,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                 response = VERSION
                 conn.sendall(json.dumps(response).encode('utf8'))
             if data == "uptime":
-                response = str(getServerTime())
+                response = str(get_server_time())
                 conn.sendall(json.dumps(response).encode('utf8'))
             if data == "help":
                 response = "Commands to use: uptime, info, help, stop"
