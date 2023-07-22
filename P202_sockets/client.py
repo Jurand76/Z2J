@@ -18,12 +18,9 @@ class Client:
 
 
 client = Client()
-query = "info"
-print(f"{client.communication(query)}")
-query = "help"
-print(f"Help: {client.communication(query)}")
-query = "uptime"
-print(f"Uptime: {client.communication(query)}")
-query = "stop"
-print(f"Stop: {client.communication(query)}")
+
+query = ""
+while query != "stop":
+    query = input("Input server query: ")
+    print(f"{client.communication(query)}")
 
